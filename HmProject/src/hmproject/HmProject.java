@@ -1,8 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/***************************************************************
+* file: HmSemesterProject.java
+* author: Angela Kwok, Kevin Ly, SinHo Cheung
+* class: CS 4450 - Computer Graphics
+*
+* assignment: semester project
+* date last modified: 10/07/2020
+*
+* purpose: Use the LWJGL library to draw a window of 640x480 in the center of
+* the screen. 
+* 
+* Checkpoint 1:
+*  - Display a cube in 3D space, with a different color on each face
+*  - Should be able to manipulate camera with mouse
+*  - Program should use the input.Keyboard class to have the 
+*    escape key quit your application.
+*  - Should be controllable by arrow keys and w,a,s,d to control camera, as well
+*    as space for up and left shift for down
+*
+****************************************************************/ 
 package hmproject;
 
 import org.lwjgl.opengl.Display;
@@ -13,10 +28,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.Sys;
 import org.lwjgl.util.glu.GLU;
-/**
- *
- * @author kevin
- */
+
 public class HmProject {
      private CameraController cc = new CameraController(0f, 0f, 0f);
     private DisplayMode displayMode;
@@ -28,7 +40,7 @@ public class HmProject {
     }
     
     //method:start
-    //purpose:accepts list of shapes and setsup/displays the window as specified
+    //purpose:creates window and initializes GL
     public void start()
     {
         
@@ -73,13 +85,4 @@ public class HmProject {
         glMatrixMode(GL_MODELVIEW);
         glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
     }
-    
-    //method: render
-    //purpose: close window when appropriate when esc key is pressed
-   
-    /**
-     * @param args the command line arguments
-     */
-   
-    
 }
