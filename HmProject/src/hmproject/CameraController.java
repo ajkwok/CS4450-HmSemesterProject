@@ -106,6 +106,8 @@ public class CameraController {
     //purpose:draw cube
     private void render() {
         try {
+            glEnable(GL_DEPTH_TEST);
+            glDepthFunc(GL_LESS);
             glBegin(GL_QUADS);
             
                 glColor3f(1f, 0f, 0f); //red color
