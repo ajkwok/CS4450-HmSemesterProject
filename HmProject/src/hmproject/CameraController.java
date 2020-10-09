@@ -116,7 +116,7 @@ public class CameraController {
                 glVertex3f( -1.0f, 1.0f, 1.0f ); // Bottom Left Of The Quad (Top)
                 glVertex3f( 1.0f, 1.0f, 1.0f ); // Bottom Right Of The Quad (Top)
 
-                glColor3f( 0f, 1f, 0f ); //green color
+                glColor3f( 0.5f, 1f, 0.5f ); //green color (yellow-green)
                 glVertex3f( 1.0f, -1.0f, 1.0f ); // Top Right Of The Quad
                 glVertex3f( -1.0f, -1.0f, 1.0f ); // Top Left Of The Quad
                 glVertex3f( -1.0f, -1.0f, -1.0f ); // Bottom Left Of The Quad
@@ -134,13 +134,13 @@ public class CameraController {
                 glVertex3f( -1.0f, 1.0f, -1.0f ); // Top Right Of The Quad (Back)
                 glVertex3f( 1.0f, 1.0f, -1.0f ); // Top Left Of The Quad (Back)
 
-                glColor3f( 1f, 0f, 1f ); //purple (red + blue)
+                glColor3f( 0.5f, 0f, 1f ); //purple (red + blue)
                 glVertex3f( -1.0f, 1.0f, 1.0f ); // Top Right Of The Quad (Left)
                 glVertex3f( -1.0f, 1.0f, -1.0f ); // Top Left Of The Quad (Left)
                 glVertex3f( -1.0f, -1.0f, -1.0f ); // Bottom Left Of The Quad
                 glVertex3f( -1.0f, -1.0f, 1.0f ); // Bottom Right Of The Quad 
 
-                glColor3f( 0f, 1f, 1f ); //sky blue (blue + green)
+                glColor3f( 0f, 0.9f, 0.9f ); //sky blue (blue + green)
                 glVertex3f( 1.0f, 1.0f, -1.0f ); // Top Right Of The Quad (Right)
                 glVertex3f( 1.0f, 1.0f, 1.0f ); // Top Left Of The Quad
                 glVertex3f( 1.0f, -1.0f, 1.0f ); // Bottom Left Of The Quad
