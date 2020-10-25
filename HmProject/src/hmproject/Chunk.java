@@ -152,9 +152,9 @@ public class Chunk
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
     
-    //method: createCubeColorCol
+    //method: createCubeVertexCol
     //purpose: return a float array of cube colors
-    private float[] createCubeColorCol(float[] CubeColorArray)
+    private float[] createCubeVertexCol(float[] CubeColorArray)
     {
         float cubeColors[] = new float[CubeColorArray.length * 4 * 6];
         for(int i = 0; i < cubeColors.length; i++)

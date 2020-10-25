@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 10/23/2020
+* date last modified: 10/24/2020
 *
 * purpose: Allow user to control camera and show cube
 * 
@@ -216,6 +216,10 @@ public class CameraController {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             
             render();
+            /*????
+            Chunk chunk = new Chunk(0, 0, 0);
+            chunk.render();
+            ???*/
             
             Display.update();
             Display.sync(60);
