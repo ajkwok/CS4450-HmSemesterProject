@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 10/07/2020
+* date last modified: 10/22/2020
 *
 * purpose: Use the LWJGL library to draw a window of 640x480 in the center of
 * the screen. 
@@ -16,6 +16,13 @@
 *    escape key quit your application.
 *  - Should be controllable by arrow keys and w,a,s,d to control camera, as well
 *    as space for up and left shift for down
+* Checkpoint 2:
+*  - Draw multiple cubes using chunks method
+*  - Create a world at least 30 cubes by 30 cubes
+*     - Cubes should be textured; Minimum of six(6) cube types
+*        - Grass, Sand, Water, Dirt, Stone, and Bedrock
+*     - Cubes should be randomly placed using simplex noise classes
+*        - Smooth rise and fall; No sudden mountains or valleys
 *
 ****************************************************************/ 
 package hmproject;
