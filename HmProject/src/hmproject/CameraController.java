@@ -6,7 +6,7 @@
 * assignment: semester project
 * date last modified: 10/26/2020
 *
-* purpose: Allow user to control camera and show cube
+* purpose: Allow user to control camera and show cube 
 * 
 * Checkpoint 1:
 *  - Display a cube in 3D space, with a different color on each face

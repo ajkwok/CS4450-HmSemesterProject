@@ -7,7 +7,7 @@
 * date last modified: 10/26/2020
 *
 * purpose: Use the LWJGL library to draw a window of 640x480 in the center of
-* the screen. 
+* the screen. Create something similar to minecraft.
 * 
 * Checkpoint 1:
 *  - Display a cube in 3D space, with a different color on each face
