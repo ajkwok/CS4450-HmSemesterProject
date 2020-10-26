@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 10/24/2020
+* date last modified: 10/26/2020
 *
 * purpose: Allow user to control camera and show cube
 * 
@@ -169,7 +169,7 @@ public class CameraController {
         float dt = 0.0f;
         float lastTime = 0.0f;
         long time = 0;
-        Chunk chunk = new Chunk(0, 0, 0);
+        Chunk chunk = new Chunk(-30, 0, -60);
         
         float mouseSensitivity = 0.09f;
         float moveSpeed = 0.35f;
