@@ -113,11 +113,10 @@ public class CameraController {
     //purpose:draw cube
     private void render() {
         try {
-            glEnableClientState(GL_VERTEX_ARRAY);
-            glEnableClientState(GL_COLOR_ARRAY);
-            glEnable(GL_DEPTH_TEST);
-            glDepthFunc(GL_LESS);
-            glBegin(GL_QUADS);
+            
+                glEnable(GL_DEPTH_TEST);
+                glDepthFunc(GL_LESS);
+                glBegin(GL_QUADS);
             
                 glColor3f(1f, 0f, 0f); //red color
                 glVertex3f(1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Top)
@@ -170,6 +169,7 @@ public class CameraController {
         float dt = 0.0f;
         float lastTime = 0.0f;
         long time = 0;
+        Chunk chunk = new Chunk(0, 0, 0);
         
         float mouseSensitivity = 0.09f;
         float moveSpeed = 0.35f;
@@ -216,7 +216,6 @@ public class CameraController {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             
             //render();
-            Chunk chunk = new Chunk(0, 0, 0);
             chunk.render();
             
             Display.update();

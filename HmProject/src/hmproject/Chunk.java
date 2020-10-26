@@ -98,7 +98,7 @@ public class Chunk
     //method: render
     //purpose: make and show image to be seen
     public void render()
-    {
+    { 
         glPushMatrix();
         glBindBuffer(GL_ARRAY_BUFFER, VBOVertexHandle);
         glVertexPointer(3, GL_FLOAT, 0, 0L);
@@ -207,7 +207,7 @@ public class Chunk
     //purpose: return color of cube as float array
     private float[] getCubeColor(Block block)
     {
-        /*switch(block.GetID())
+        switch(block.GetID())
         {
             case 1:
                 return new float[]{0, 1, 0};
@@ -215,7 +215,7 @@ public class Chunk
                 return new float[]{1, 0.5f, 0};
             case 3:
                 return new float[]{0, 0f, 1f};
-        }*/
+        }
         return new float[]{1, 1, 1};
     }
     
