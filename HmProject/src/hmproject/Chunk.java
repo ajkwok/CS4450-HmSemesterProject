@@ -37,6 +37,7 @@ import org.newdawn.slick.util.ResourceLoader;
 public class Chunk
 {
     //instance fields
+    
     static final int CHUNK_SIZE = 30;
     static final int CUBE_LENGTH = 2;
     private Block[][][] Blocks;
@@ -133,18 +134,28 @@ public class Chunk
         FloatBuffer VertexColorData = BufferUtils.createFloatBuffer(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 6 * 12);
         FloatBuffer VertexTextureData = BufferUtils.createFloatBuffer((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE) * 6 * 12);
         
+        int largestFeature = r.nextInt(300);
+        double persistence = r.nextDouble();
+        int seed = r.nextInt();
+        float height;
+        float i;
+        
+        SimplexNoise noise = new SimplexNoise(largestFeature, 0.1f, seed);
+        
         for(float x = 0; x < CHUNK_SIZE; x += 1)
         {
             for (float z = 0; z < CHUNK_SIZE; z += 1)
             {
                 for(float y = 0; y < CHUNK_SIZE; y++)
                 {
-                    VertexPositionData.put(createCube((float)(startX + x * CUBE_LENGTH), 
-                            (float)(y * CUBE_LENGTH + (int)(CHUNK_SIZE * 0.8)),
+                    i = (int)(startX + x * ((300 - startX) / 640));
+                    height = (float)(startY + (int)(100 * noise.getNoise((int)x, (int)y, (int)z)) * CUBE_LENGTH);
+                    VertexPositionData.put(createCube((float)(i * CUBE_LENGTH), 
+                            (float)(height + (int)(CHUNK_SIZE * 0.8)),
                             (float)(startZ + z * CUBE_LENGTH)));
                     VertexColorData.put(createCubeVertexCol(getCubeColor(Blocks[(int)x][(int)y][(int)z])));
                     VertexTextureData.put(createTexCube((float)0, (float)0,
-                            Blocks[(int)(x)][(int) (y)][(int) (z)]));
+                            Blocks[(int)(x)][(int)(y)][(int)(z)]));
                 }
             }
         }
