@@ -133,25 +133,17 @@ public class Chunk
         FloatBuffer VertexPositionData = BufferUtils.createFloatBuffer(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 6 * 12);
         FloatBuffer VertexColorData = BufferUtils.createFloatBuffer(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 6 * 12);
         FloatBuffer VertexTextureData = BufferUtils.createFloatBuffer((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE) * 6 * 12);
-        
-        int largestFeature = r.nextInt(300);
-        double persistence = r.nextDouble();
-        int seed = r.nextInt();
-        float height;
-        float i;
-        
-        SimplexNoise noise = new SimplexNoise(largestFeature, 0.1f, seed);
+       
+        float height[][] = getHeight(startY);
         
         for(float x = 0; x < CHUNK_SIZE; x += 1)
         {
             for (float z = 0; z < CHUNK_SIZE; z += 1)
             {
-                for(float y = 0; y < CHUNK_SIZE; y++)
+                for(float y = 0; y <= height[(int)x][(int)z]; y += 1)
                 {
-                    i = (int)(startX + x * ((300 - startX) / 640));
-                    height = (float)(startY + (int)(100 * noise.getNoise((int)x, (int)y, (int)z)) * CUBE_LENGTH);
-                    VertexPositionData.put(createCube((float)(i * CUBE_LENGTH), 
-                            (float)(height + (int)(CHUNK_SIZE * 0.8)),
+                    VertexPositionData.put(createCube((float)(startX + x * CUBE_LENGTH), 
+                            (float)(startY + y * CUBE_LENGTH),
                             (float)(startZ + z * CUBE_LENGTH)));
                     VertexColorData.put(createCubeVertexCol(getCubeColor(Blocks[(int)x][(int)y][(int)z])));
                     VertexTextureData.put(createTexCube((float)0, (float)0,
@@ -172,6 +164,34 @@ public class Chunk
         glBindBuffer(GL_ARRAY_BUFFER, VBOTextureHandle);
         glBufferData(GL_ARRAY_BUFFER, VertexTextureData, GL_STATIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
+    
+    //method: getHeight
+    //purpose: return 2D float array with height of landscape
+    private float[][] getHeight(float startY)
+    {
+        float height;
+        int largestFeature = r.nextInt(300);
+        int seed = r.nextInt();
+        SimplexNoise noise = new SimplexNoise(largestFeature, 0.1f, seed);
+        float[][] array = new float[CHUNK_SIZE][CHUNK_SIZE];
+        for(float x = 0; x < CHUNK_SIZE; x += 1)
+        {
+            for (float z = 0; z < CHUNK_SIZE; z += 1)
+            {
+                height = (float)(startY + (int)(100 * noise.getNoise((int)x, (int)z)));
+                if( height < 0)
+                {
+                    height *= -1;
+                }
+                if (height == 0)
+                {
+                    height += 1;
+                }
+                array[(int)x][(int)z] = height;
+            }
+        }
+        return array;
     }
     
     //method: createCubeVertexCol
@@ -261,10 +281,10 @@ public class Chunk
                 x + offset*3, y + offset*1,
                 x + offset*2, y + offset*1,
                 // FRONT QUAD
-                x + offset*3, y + offset*1,
-                x + offset*4, y + offset*1,
-                x + offset*4, y + offset*0, 
                 x + offset*3, y + offset*0,
+                x + offset*4, y + offset*0,
+                x + offset*4, y + offset*1, 
+                x + offset*3, y + offset*1,
                 // BACK QUAD
                 x + offset*3, y + offset*1,
                 x + offset*4, y + offset*1,
