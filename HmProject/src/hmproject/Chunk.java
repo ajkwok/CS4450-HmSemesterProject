@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 10/26/2020
+* date last modified: 11/03/2020
 *
 * purpose: Create 'landscape' of Blocks to be displayed
 * 
@@ -61,6 +61,7 @@ public class Chunk
             System.out.print("Problem loading texture.");
         }
         r = new Random();
+        float height[][] = getHeight(startY);
         Blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE];
         for (int x = 0; x < CHUNK_SIZE; x++)
         {
@@ -68,32 +69,39 @@ public class Chunk
             {
                 for (int z = 0; z < CHUNK_SIZE; z++)
                 {
-                    if(r.nextFloat() > 0.84f)
+                    if(y == height[(int)x][(int)z])
                     {
-                        Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Grass);
-                    }else if(r.nextFloat() > 0.7f)
-                    {
-                        Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Sand);
+                        if(r.nextFloat() > 0.75f)
+                        {
+                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Water);
+                        }
+                        else if(r.nextFloat() > 0.5f)
+                        {
+                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Grass);
+                        }
+                        else if(r.nextFloat() > 0.25f)
+                        {
+                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Default);
+                        }
+                        else
+                        {
+                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Sand);
+                        }
                     }
-                    else if(r.nextFloat() > 0.56f)
+                    else if(y < 1)
                     {
-                        Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Water);
-                    }
-                    else if(r.nextFloat() > 0.42f)
-                    {
-                        Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Dirt);
-                    }
-                    else if(r.nextFloat() > 0.28f)
-                    {
-                        Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Stone);
-                    }
-                    else if(r.nextFloat() > 0.14f)
-                    {
-                        Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Bedrock);
+                        Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Bedrock);
                     }
                     else
                     {
-                        Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Default);
+                        if(r.nextFloat() > 0.5f)
+                        {
+                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Stone);
+                        }
+                        else
+                        {
+                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Dirt);
+                        }
                     }
                 }
             }
@@ -104,7 +112,7 @@ public class Chunk
         StartX = startX;
         StartY = startY;
         StartZ = startZ;
-        rebuildMesh(startX, startY, startZ);
+        rebuildMesh(startX, startY, startZ, height);
     }
     
     //method: render
@@ -125,7 +133,7 @@ public class Chunk
     
     //method: rebuildMesh
     //purpose: accept start point and create cubes
-    public void rebuildMesh(float startX, float startY, float startZ)
+    public void rebuildMesh(float startX, float startY, float startZ, float[][] height)
     {
         VBOColorHandle = glGenBuffers();
         VBOVertexHandle = glGenBuffers();
@@ -134,8 +142,6 @@ public class Chunk
         FloatBuffer VertexColorData = BufferUtils.createFloatBuffer(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 6 * 12);
         FloatBuffer VertexTextureData = BufferUtils.createFloatBuffer((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE) * 6 * 12);
        
-        float height[][] = getHeight(startY);
-        
         for(float x = 0; x < CHUNK_SIZE; x += 1)
         {
             for (float z = 0; z < CHUNK_SIZE; z += 1)
