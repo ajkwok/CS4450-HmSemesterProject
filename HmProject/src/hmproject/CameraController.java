@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 10/26/2020
+* date last modified: 11/04/2020
 *
 * purpose: Allow user to control camera and show cube 
 * 
@@ -32,6 +32,8 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.util.vector.Vector3f;
+import java.nio.FloatBuffer;
+import org.lwjgl.BufferUtils;
 
 public class CameraController {
     private Vector3f position = null;
@@ -65,6 +67,12 @@ public class CameraController {
     public void moveForward(float distance){
         float xOffset = distance * (float)Math.sin(Math.toRadians(yaw));
         float zOffset = distance * (float)Math.cos(Math.toRadians(yaw));
+        
+        FloatBuffer lightPosition = BufferUtils.createFloatBuffer(4);
+        lightPosition.put(lookPosition.x-=xOffset).put(
+        lookPosition.y).put(lookPosition.z+=zOffset).put(1.0f).flip();
+        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
+        
         position.x -= xOffset;
         position.z += zOffset;
     }
@@ -73,17 +81,33 @@ public class CameraController {
      public void moveBackward(float distance){
         float xOffset = distance * (float)Math.sin(Math.toRadians(yaw));
         float zOffset = distance * (float)Math.cos(Math.toRadians(yaw));
+        
+        FloatBuffer lightPosition = BufferUtils.createFloatBuffer(4);
+        lightPosition.put(lookPosition.x-=xOffset).put(
+        lookPosition.y).put(lookPosition.z+=zOffset).put(1.0f).flip();
+        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
+        
         position.x += xOffset;
         position.z -= zOffset;
     }
     //method:moveUp
      //purpose: moves camera up from it's current position
     public void moveUp(float distance){
+        FloatBuffer lightPosition = BufferUtils.createFloatBuffer(4);
+        lightPosition.put(lookPosition.x).put(
+        lookPosition.y).put(lookPosition.z).put(1.0f).flip();
+        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
+        
         position.y -= distance;
     }
     //method: moveDown
     //purpose: moves camera down from it's current position
     public void moveDown(float distance){
+        FloatBuffer lightPosition = BufferUtils.createFloatBuffer(4);
+        lightPosition.put(lookPosition.x).put(
+        lookPosition.y).put(lookPosition.z).put(1.0f).flip();
+        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
+        
         position.y += distance;
     }
     //method:strafeLeft
@@ -108,6 +132,10 @@ public class CameraController {
         glRotatef(pitch, 1.0f, 0.0f, 0.0f);
         glRotatef(yaw, 0.0f, 1.0f, 0.0f);
         glTranslatef(position.x, position.y, position.z);
+        FloatBuffer lightPosition = BufferUtils.createFloatBuffer(4);
+        lightPosition.put(lookPosition.x).put(
+        lookPosition.y).put(lookPosition.z).put(1.0f).flip();
+        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
     }
     //method:render
     //purpose:draw cube
