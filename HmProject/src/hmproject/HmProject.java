@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 11/04/2020
+* date last modified: 11/08/2020
 *
 * purpose: Use the LWJGL library to draw a window of 640x480 in the center of
 * the screen. Create something similar to minecraft.
@@ -23,6 +23,12 @@
 *        - Grass, Sand, Water, Dirt, Stone, and Bedrock
 *     - Cubes should be randomly placed using simplex noise classes
 *        - Smooth rise and fall; No sudden mountains or valleys
+* Checkpoint 3:
+*  - layer the types of terrain
+*     - top layer: grass, water, sand, and default
+*     - middle layer: dirt, stone
+*     - bottom layer: bedrock
+*  - light source (hald world brightly lit, other half dimly illuminated)
 *
 ****************************************************************/ 
 package hmproject;
@@ -86,7 +92,7 @@ public class HmProject {
     //purpose: set background of window to black, orient window to coordinates
     private void initializeGL()
     {
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.65f, 0.9f, 1.0f, 0.0f);
         
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();

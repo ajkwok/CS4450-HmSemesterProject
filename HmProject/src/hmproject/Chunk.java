@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 11/03/2020
+* date last modified: 11/08/2020
 *
 * purpose: Create 'landscape' of Blocks to be displayed
 * 
@@ -22,6 +22,12 @@
 *        - Grass, Sand, Water, Dirt, Stone, and Bedrock
 *     - Cubes should be randomly placed using simplex noise classes
 *        - Smooth rise and fall; No sudden mountains or valleys
+* Checkpoint 3:
+*  - layer the types of terrain
+*     - top layer: grass, water, sand, and default
+*     - middle layer: dirt, stone
+*     - bottom layer: bedrock
+*  - light source (hald world brightly lit, other half dimly illuminated)
 *
 ****************************************************************/
 package hmproject;
@@ -62,6 +68,7 @@ public class Chunk
         }
         r = new Random();
         float height[][] = getHeight(startY);
+        int type[][] = getType();
         Blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE];
         for (int x = 0; x < CHUNK_SIZE; x++)
         {
@@ -71,21 +78,21 @@ public class Chunk
                 {
                     if(y == height[(int)x][(int)z])
                     {
-                        if(r.nextFloat() > 0.75f)
-                        {
-                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Water);
-                        }
-                        else if(r.nextFloat() > 0.5f)
+                        if(type[x][z] == 0)
                         {
                             Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Grass);
                         }
-                        else if(r.nextFloat() > 0.25f)
+                        else if(type[x][z] == 1)
                         {
-                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Default);
+                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Water);
+                        }
+                        else if(type[x][z] == 2)
+                        {
+                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Sand);
                         }
                         else
                         {
-                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Sand);
+                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Default);
                         }
                     }
                     else if(y < 1)
@@ -94,7 +101,7 @@ public class Chunk
                     }
                     else
                     {
-                        if(r.nextFloat() > 0.5f)
+                        if(r.nextFloat() > 0.75f)
                         {
                             Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Stone);
                         }
@@ -177,7 +184,7 @@ public class Chunk
     private float[][] getHeight(float startY)
     {
         float height;
-        int largestFeature = r.nextInt(300);
+        int largestFeature = r.nextInt(200) + 100;
         int seed = r.nextInt();
         SimplexNoise noise = new SimplexNoise(largestFeature, 0.1f, seed);
         float[][] array = new float[CHUNK_SIZE][CHUNK_SIZE];
@@ -195,6 +202,43 @@ public class Chunk
                     height += 1;
                 }
                 array[(int)x][(int)z] = height;
+            }
+        }
+        return array;
+    }
+    
+    //method: getType
+    //purpose: return 2D int array with type of block for the landscape
+    private int[][] getType()
+    {
+        int type = r.nextInt(3);
+        int[][] array = new int[CHUNK_SIZE][CHUNK_SIZE];
+        for(int x = 0; x < CHUNK_SIZE; x += 3)
+        {
+            for (int z = 0; z < CHUNK_SIZE; z += 2)
+            {
+                if(x > 0)
+                {
+                    type = array[x][z];
+                }
+                if(r.nextFloat() > 0.50f)
+                {
+                    type = r.nextInt(3);
+                }
+                array[x][z] = type;
+                array[x][z + 1] = type;
+                array[x + 1][z] = type;
+                array[x + 1][z + 1] = type;
+                array[x + 2][z] = type;
+                array[x + 2][z + 1] = type;
+                if(r.nextFloat() > 0.5f && x > 0)
+                {
+                    array[x][z + 1] = array[x - 1][z + 1];
+                }
+                if(r.nextFloat() > 0.5f && x > 0)
+                {
+                    array[x][z] = array[x - 1][z];
+                }
             }
         }
         return array;
