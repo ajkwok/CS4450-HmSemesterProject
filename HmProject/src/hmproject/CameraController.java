@@ -92,22 +92,20 @@ public class CameraController {
     }
     //method:moveUp
      //purpose: moves camera up from it's current position
-    public void moveUp(float distance){
+    public void moveUp(float distance){  
         FloatBuffer lightPosition = BufferUtils.createFloatBuffer(4);
         lightPosition.put(lookPosition.x).put(
         lookPosition.y).put(lookPosition.z).put(1.0f).flip();
         glLight(GL_LIGHT0, GL_POSITION, lightPosition);
-        
         position.y -= distance;
     }
     //method: moveDown
     //purpose: moves camera down from it's current position
-    public void moveDown(float distance){
+    public void moveDown(float distance){    
         FloatBuffer lightPosition = BufferUtils.createFloatBuffer(4);
         lightPosition.put(lookPosition.x).put(
         lookPosition.y).put(lookPosition.z).put(1.0f).flip();
         glLight(GL_LIGHT0, GL_POSITION, lightPosition);
-        
         position.y += distance;
     }
     //method:strafeLeft
@@ -115,6 +113,7 @@ public class CameraController {
     public void strafeLeft(float distance){
         float xOffset = distance * (float)Math.sin(Math.toRadians(yaw - 90));
         float zOffset = distance * (float)Math.cos(Math.toRadians(yaw - 90));
+        
         position.x -= xOffset;
         position.z += zOffset;
     }
@@ -123,6 +122,8 @@ public class CameraController {
     public void strafeRight(float distance){
         float xOffset = distance * (float)Math.sin(Math.toRadians(yaw + 90));
         float zOffset = distance * (float)Math.cos(Math.toRadians(yaw + 90));
+        
+        
         position.x -= xOffset;
         position.z += zOffset;
     }
@@ -132,6 +133,7 @@ public class CameraController {
         glRotatef(pitch, 1.0f, 0.0f, 0.0f);
         glRotatef(yaw, 0.0f, 1.0f, 0.0f);
         glTranslatef(position.x, position.y, position.z);
+        
         FloatBuffer lightPosition = BufferUtils.createFloatBuffer(4);
         lightPosition.put(lookPosition.x).put(
         lookPosition.y).put(lookPosition.z).put(1.0f).flip();
@@ -197,7 +199,7 @@ public class CameraController {
         float dt = 0.0f;
         float lastTime = 0.0f;
         long time = 0;
-        Chunk chunk = new Chunk(-30, 0, -60);
+        Chunk chunk = new Chunk(-30, 0, -30);
         
         float mouseSensitivity = 0.09f;
         float moveSpeed = 0.35f;
