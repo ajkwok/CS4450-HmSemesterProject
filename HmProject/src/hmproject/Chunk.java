@@ -148,7 +148,7 @@ public class Chunk
         FloatBuffer VertexPositionData = BufferUtils.createFloatBuffer(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 6 * 12);
         FloatBuffer VertexColorData = BufferUtils.createFloatBuffer(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 6 * 12);
         FloatBuffer VertexTextureData = BufferUtils.createFloatBuffer((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE) * 6 * 12);
-       
+      
         for(float x = 0; x < CHUNK_SIZE; x += 1)
         {
             for (float z = 0; z < CHUNK_SIZE; z += 1)
@@ -156,7 +156,7 @@ public class Chunk
                 for(float y = 0; y <= height[(int)x][(int)z]; y += 1)
                 {
                     VertexPositionData.put(createCube((float)(startX + x * CUBE_LENGTH), 
-                            (float)(startY + y * CUBE_LENGTH),
+                            (float)(y * CUBE_LENGTH + (CHUNK_SIZE * 0.8)),
                             (float)(startZ + z * CUBE_LENGTH)));
                     VertexColorData.put(createCubeVertexCol(getCubeColor(Blocks[(int)x][(int)y][(int)z])));
                     VertexTextureData.put(createTexCube((float)0, (float)0,
@@ -192,8 +192,9 @@ public class Chunk
         {
             for (float z = 0; z < CHUNK_SIZE; z += 1)
             {
+                
                 height = (float)(startY + (int)(100 * noise.getNoise((int)x, (int)z)));
-                if( height < 0)
+                if(height < 0)
                 {
                     height *= -1;
                 }
