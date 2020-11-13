@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 11/08/2020
+* date last modified: 11/13/2020
 *
 * purpose: Create 'landscape' of Blocks to be displayed
 * 
@@ -27,7 +27,7 @@
 *     - top layer: grass, water, sand, and default
 *     - middle layer: dirt, stone
 *     - bottom layer: bedrock
-*  - light source (hald world brightly lit, other half dimly illuminated)
+*  - light source (half world brightly lit, other half dimly illuminated)
 *
 ****************************************************************/
 package hmproject;
@@ -44,7 +44,7 @@ public class Chunk
 {
     //instance fields
     
-    static final int CHUNK_SIZE = 30;
+    static final int CHUNK_SIZE = 60;
     static final int CUBE_LENGTH = 2;
     private Block[][][] Blocks;
     private int VBOVertexHandle;
