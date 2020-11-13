@@ -84,7 +84,7 @@ public class HmProject {
             }
         }
         Display.setDisplayMode(displayMode);
-        Display.setTitle("Camera Simulation");
+        Display.setTitle("Group Hm");
         Display.create();
     }
     
