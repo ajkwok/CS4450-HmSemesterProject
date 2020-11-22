@@ -1,0 +1,23 @@
+public day/night cycles Main()
+{
+    public void timeOfDay(){
+	int timeOfDay= Statistics.duration % 200;
+    if (timeOfDay <= 50){
+        dawn = true;
+        night = false;
+        Dungeon.nightMode = false;
+        // it's dawn now
+    } else if (timeOfDay > 50 && timeOfDay <= 100) {
+       noon = true;
+       dawn = false;
+        // it's noon now
+    } else if (timeOfDay > 100 && timeOfDay <= 150) {
+        dusk = true;
+        noon = false;
+        // it's dusk now
+    } else {
+        night = true;
+        dusk = false;
+        // it's night now 
+    }
+    }
