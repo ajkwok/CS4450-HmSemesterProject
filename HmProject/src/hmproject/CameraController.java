@@ -38,12 +38,13 @@ import org.lwjgl.BufferUtils;
 public class CameraController {
     private Vector3f position = null;
     private Vector3f lookPosition = null;
-    
-    
+    static final int CHUNK_SIZE = 60;
+    private Chunk chunk;
     private float yaw = 0.0f;
     private float pitch = 0.0f;
     
-  
+    //method: CameraController
+    //purpose: constructor for Camera Controller
     public CameraController(float x, float y, float z){
         position = new Vector3f(x, y, z);
         lookPosition = new Vector3f(x, y, z);
@@ -51,6 +52,7 @@ public class CameraController {
         lookPosition.y = 15f;
         lookPosition.z = 0f;
     }
+    
     
     //method:yaw
     //purpose: change the camera yaw rotation
@@ -73,9 +75,20 @@ public class CameraController {
         lookPosition.y).put(lookPosition.z+=zOffset).put(1.0f).flip();
         glLight(GL_LIGHT0, GL_POSITION, lightPosition);
         
-        position.x -= xOffset;
-        position.z += zOffset;
+        if(position.x >= (-1*(CHUNK_SIZE)) && position.x <= CHUNK_SIZE && position.z >= (-1 *(CHUNK_SIZE)) && position.z <= CHUNK_SIZE){
+            position.x -= xOffset;
+            position.z += zOffset;
+        }
+        else {
+            position.x = 0;
+            position.z = 0;
+        }
+        
+       
+    
     }
+    
+    
     //method:moveBackward
     //purpose: moves camera backwards relative to yaw rotation 
      public void moveBackward(float distance){
@@ -87,8 +100,18 @@ public class CameraController {
         lookPosition.y).put(lookPosition.z+=zOffset).put(1.0f).flip();
         glLight(GL_LIGHT0, GL_POSITION, lightPosition);
         
-        position.x += xOffset;
-        position.z -= zOffset;
+        if(position.x >= (-1*(CHUNK_SIZE)) && position.x <= CHUNK_SIZE && position.z >= (-1 *(CHUNK_SIZE)) && position.z <= CHUNK_SIZE){
+            position.x += xOffset;
+            position.z -= zOffset;
+        }
+        else {
+            position.x = 0;
+            position.z = 0;
+        }
+         
+     
+             
+        
     }
     //method:moveUp
      //purpose: moves camera up from it's current position
@@ -114,8 +137,14 @@ public class CameraController {
         float xOffset = distance * (float)Math.sin(Math.toRadians(yaw - 90));
         float zOffset = distance * (float)Math.cos(Math.toRadians(yaw - 90));
         
-        position.x -= xOffset;
-        position.z += zOffset;
+        if(position.x >= (-1*(CHUNK_SIZE)) && position.x <= CHUNK_SIZE && position.z >= (-1 *(CHUNK_SIZE)) && position.z <= CHUNK_SIZE){
+            position.x -= xOffset;
+            position.z += zOffset;
+        }
+        else {
+            position.x = 0;
+            position.z = 0;
+        }
     }
     //method:strafeRight
     //purpose: strafes camera right relative to it's current rotation
@@ -124,29 +153,36 @@ public class CameraController {
         float zOffset = distance * (float)Math.cos(Math.toRadians(yaw + 90));
         
         
-        position.x -= xOffset;
-        position.z += zOffset;
+        if(position.x >= (-1*(CHUNK_SIZE)) && position.x <= CHUNK_SIZE && position.z >= (-1 *(CHUNK_SIZE)) && position.z <= CHUNK_SIZE){
+            position.x -= xOffset;
+            position.z += zOffset;
+        }
+        else {
+            position.x = 0;
+            position.z = 0;
+        }
     }
     //method:lookThrough
     //purpose:translates and rotates the matrix so it looks through the camera
     public void lookThrough(){
         glRotatef(pitch, 1.0f, 0.0f, 0.0f);
         glRotatef(yaw, 0.0f, 1.0f, 0.0f);
-        glTranslatef(position.x, position.y, position.z);
+        glTranslatef(position.x, position.y - 110.0f, position.z);      
         
         FloatBuffer lightPosition = BufferUtils.createFloatBuffer(4);
         lightPosition.put(lookPosition.x).put(
         lookPosition.y).put(lookPosition.z).put(1.0f).flip();
         glLight(GL_LIGHT0, GL_POSITION, lightPosition);
     }
+    
     //method:render
     //purpose:draw cube
     private void render() {
         try {
             
-                glEnable(GL_DEPTH_TEST);
-                glDepthFunc(GL_LESS);
-                glBegin(GL_QUADS);
+            glEnable(GL_DEPTH_TEST);
+            glDepthFunc(GL_LESS);
+            glBegin(GL_QUADS);
             
                 glColor3f(1f, 0f, 0f); //red color
                 glVertex3f(1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Top)
@@ -184,32 +220,36 @@ public class CameraController {
                 glVertex3f( 1.0f, -1.0f, 1.0f ); // Bottom Left Of The Quad
                 glVertex3f( 1.0f, -1.0f, -1.0f ); // Bottom Right Of The Quad
             glEnd();
+            
         }
         catch(Exception e){
             
         }
     }
+   
     //method:gameLoop
     //purpose:set up controls and render image to be seen
     public void gameLoop()
     {
-        CameraController camera = new CameraController(0,0,0);
+        CameraController camera = new CameraController(0, 0, 0);
         float dx = 0.0f;
         float dy = 0.0f;
         float dt = 0.0f;
         float lastTime = 0.0f;
         long time = 0;
-        Chunk chunk = new Chunk(-30, 0, -30);
+        chunk = new Chunk(-60, 0, -60);
         
         float mouseSensitivity = 0.09f;
         float moveSpeed = 0.35f;
         
+        
+
         //hides mouse
         Mouse.setGrabbed(true);
         
         while(!Display.isCloseRequested()&& !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
         {
-
+            
             time = Sys.getTime();
             lastTime = time;
             dx = Mouse.getDX();
@@ -217,7 +257,8 @@ public class CameraController {
 
             camera.yaw(dx * mouseSensitivity);
             camera.pitch(dy * mouseSensitivity);
-
+            
+            
             //Moves Camera Position using the WASD keys
             if(Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP)){
                 camera.moveForward(moveSpeed);
@@ -242,9 +283,10 @@ public class CameraController {
             
             glLoadIdentity();
             
+          
             camera.lookThrough();
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            
+          
             //render();
             chunk.render();
             
