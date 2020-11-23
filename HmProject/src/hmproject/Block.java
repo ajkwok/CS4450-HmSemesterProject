@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 10/24/2020
+* date last modified: 11/23/2020
 *
 * purpose: object class for a block/cube
 * 
@@ -22,6 +22,25 @@
 *        - Grass, Sand, Water, Dirt, Stone, and Bedrock
 *     - Cubes should be randomly placed using simplex noise classes
 *        - Smooth rise and fall; No sudden mountains or valleys
+* Checkpoint 3:
+*  - layer the types of terrain
+*     - top layer: grass, water, sand, and default
+*     - middle layer: dirt, stone
+*     - bottom layer: bedrock
+*  - light source (half world brightly lit, other half dimly illuminated)
+*  Final Checkpoint:
+*  - Three Additional features 
+*     1. random river generation/ terrain grouping
+*        - only one river may be generated
+*        - river is straight, no curving
+*     2. prevent player from moving out of bounds
+*        - the player will be repositioned to the center
+*          if they move out of x and z boundaries
+*     3. floral generation
+*        - randomly generated
+*        - cactus only in sand
+*        - everything else only on grass (mushrooms, flowers, trees, etc.)
+*        - added transparency/blending
 *
 ****************************************************************/ 
 package hmproject;
@@ -38,7 +57,15 @@ public class Block {
         BlockType_Dirt(3),
         BlockType_Stone(4),
         BlockType_Bedrock(5),
-        BlockType_Default(6);
+        BlockType_Default(6),
+        BlockType_Rose(7),
+        BlockType_Pine(8),
+        BlockType_Cactus(9),
+        BlockType_Mushroom(10),
+        BlockType_Flower(11),
+        BlockType_FairyRing(12),
+        BlockType_Tree(13),
+        BlockType_Sudowoodo(14);
         private int BlockID;
         
         BlockType(int i) {

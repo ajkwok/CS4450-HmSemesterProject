@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 11/04/2020
+* date last modified: 11/23/2020
 *
 * purpose: Allow user to control camera and show cube 
 * 
@@ -22,6 +22,25 @@
 *        - Grass, Sand, Water, Dirt, Stone, and Bedrock
 *     - Cubes should be randomly placed using simplex noise classes
 *        - Smooth rise and fall; No sudden mountains or valleys
+* Checkpoint 3:
+*  - layer the types of terrain
+*     - top layer: grass, water, sand, and default
+*     - middle layer: dirt, stone
+*     - bottom layer: bedrock
+*  - light source (half world brightly lit, other half dimly illuminated)
+*  Final Checkpoint:
+*  - Three Additional features 
+*     1. random river generation/ terrain grouping
+*        - only one river may be generated
+*        - river is straight, no curving
+*     2. prevent player from moving out of bounds
+*        - the player will be repositioned to the center
+*          if they move out of x and z boundaries
+*     3. floral generation
+*        - randomly generated
+*        - cactus only in sand
+*        - everything else only on grass (mushrooms, flowers, trees, etc.)
+*        - added transparency/blending
 *
 ****************************************************************/ 
 package hmproject;
@@ -231,7 +250,7 @@ public class CameraController {
     //purpose:set up controls and render image to be seen
     public void gameLoop()
     {
-        CameraController camera = new CameraController(0, 0, 0);
+        CameraController camera = new CameraController(-60, 0, 0);
         float dx = 0.0f;
         float dy = 0.0f;
         float dt = 0.0f;

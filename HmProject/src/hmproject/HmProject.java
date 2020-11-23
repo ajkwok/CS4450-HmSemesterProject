@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 11/08/2020
+* date last modified: 11/23/2020
 *
 * purpose: Use the LWJGL library to draw a window of 640x480 in the center of
 * the screen. Create something similar to minecraft.
@@ -28,7 +28,20 @@
 *     - top layer: grass, water, sand, and default
 *     - middle layer: dirt, stone
 *     - bottom layer: bedrock
-*  - light source (hald world brightly lit, other half dimly illuminated)
+*  - light source (half world brightly lit, other half dimly illuminated)
+* Final Checkpoint:
+*  - Three Additional features 
+*     1. random river generation/ terrain grouping
+*        - only one river may be generated
+*        - river is straight, no curving
+*     2. prevent player from moving out of bounds
+*        - the player will be repositioned to the center
+*          if they move out of x and z boundaries
+*     3. floral generation
+*        - randomly generated
+*        - cactus only in sand
+*        - everything else only on grass (mushrooms, flowers, trees, etc.)
+*        - added transparency/blending
 *
 ****************************************************************/ 
 package hmproject;
@@ -104,6 +117,8 @@ public class HmProject {
         
         glEnable(GL_TEXTURE_2D);
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+        glEnable( GL_BLEND );
+        glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
         
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_COLOR_ARRAY);
