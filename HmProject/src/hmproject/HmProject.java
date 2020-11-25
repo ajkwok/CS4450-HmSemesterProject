@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 11/23/2020
+* date last modified: 11/25/2020
 *
 * purpose: Use the LWJGL library to draw a window of 640x480 in the center of
 * the screen. Create something similar to minecraft.
@@ -117,8 +117,8 @@ public class HmProject {
         
         glEnable(GL_TEXTURE_2D);
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-        glEnable( GL_BLEND );
-        glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+        glAlphaFunc(GL_GREATER, 0.5f);
+        glEnable(GL_ALPHA_TEST);
         
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_COLOR_ARRAY);

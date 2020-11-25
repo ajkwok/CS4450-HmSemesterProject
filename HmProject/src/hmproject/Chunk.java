@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 11/23/2020
+* date last modified: 11/25/2020
 *
 * purpose: Create 'landscape' of Blocks to be displayed
 * 
@@ -99,17 +99,17 @@ public class Chunk
                             {
                                 height[(int)x][(int)z]++;
                                 y++;
-                                if(r.nextFloat() > 0.86)
+                                if(r.nextFloat() > 0.96)
                                 {
-                                    Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Rose);
+                                    Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_FairyRing);
                                 }
                                 else if(r.nextFloat() > 0.72)
                                 {
-                                    Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Mushroom);
+                                    Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Rose);
                                 }
                                 else if(r.nextFloat() > 0.58)
                                 {
-                                    Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_FairyRing);
+                                    Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Mushroom);
                                 }
                                 else if(r.nextFloat() > 0.44)
                                 {

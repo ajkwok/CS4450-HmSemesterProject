@@ -4,7 +4,7 @@
 * class: CS 4450 - Computer Graphics
 *
 * assignment: semester project
-* date last modified: 11/23/2020
+* date last modified: 11/25/2020
 *
 * purpose: Allow user to control camera and show cube 
 * 
@@ -22,12 +22,6 @@
 *        - Grass, Sand, Water, Dirt, Stone, and Bedrock
 *     - Cubes should be randomly placed using simplex noise classes
 *        - Smooth rise and fall; No sudden mountains or valleys
-* Checkpoint 3:
-*  - layer the types of terrain
-*     - top layer: grass, water, sand, and default
-*     - middle layer: dirt, stone
-*     - bottom layer: bedrock
-*  - light source (half world brightly lit, other half dimly illuminated)
 *  Final Checkpoint:
 *  - Three Additional features 
 *     1. random river generation/ terrain grouping
@@ -250,7 +244,7 @@ public class CameraController {
     //purpose:set up controls and render image to be seen
     public void gameLoop()
     {
-        CameraController camera = new CameraController(-60, 0, 0);
+        CameraController camera = new CameraController(0, 0, 0);
         float dx = 0.0f;
         float dy = 0.0f;
         float dt = 0.0f;
