@@ -183,8 +183,12 @@ public class CameraController {
         glTranslatef(position.x, position.y - 110.0f, position.z);      
         
         FloatBuffer lightPosition = BufferUtils.createFloatBuffer(4);
-        lightPosition.put(lookPosition.x).put(
-        lookPosition.y).put(lookPosition.z).put(1.0f).flip();
+        //lightPosition.put(lookPosition.x).put(
+        //lookPosition.y).put(lookPosition.z).put(1.0f).flip();
+        //glLight(GL_LIGHT0, GL_POSITION, lightPosition);
+        long time = Sys.getTime();
+        lightPosition.put(time % 1000).put(
+        time % 1000).put(time % 1000).put(1.0f).flip();
         glLight(GL_LIGHT0, GL_POSITION, lightPosition);
     }
     
@@ -255,8 +259,6 @@ public class CameraController {
         float mouseSensitivity = 0.09f;
         float moveSpeed = 0.35f;
         
-        
-
         //hides mouse
         Mouse.setGrabbed(true);
         
@@ -267,7 +269,7 @@ public class CameraController {
             lastTime = time;
             dx = Mouse.getDX();
             dy = Mouse.getDY();
-
+            
             camera.yaw(dx * mouseSensitivity);
             camera.pitch(dy * mouseSensitivity);
             
